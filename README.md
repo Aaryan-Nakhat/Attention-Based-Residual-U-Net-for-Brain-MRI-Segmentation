@@ -10,7 +10,6 @@ Using a standard U-Net architecture with skip connections embedded in residual b
 ![](miscellaneous/Sample Prediction on Unseen Data.png)
 
 
-
 ## Dataset
 
 The dataset used for this project is taken from Kaggle (<a href = "https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation">dataset</a>).
