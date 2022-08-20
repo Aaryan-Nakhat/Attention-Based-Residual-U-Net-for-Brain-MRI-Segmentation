@@ -7,53 +7,33 @@ Using a standard U-Net architecture with skip connections embedded in residual b
 
 ## Sample Prediction Results on Unseen Data
 
-![Demo](miscellaneous/demo-alzheimers.gif)
+![Demo](miscellaneous/Sample Prediction on Unseen Data.png)
 
-
-## Running the app
-
-- Firstly run <code>pip install -r requirements.txt</code> to install all dependencies.
-- Then run <code>python app.py</code> to open the web app locally.
 
 
 ## Dataset
 
-The dataset used for this project is taken from Kaggle (<a href = "https://www.kaggle.com/datasets/tourist55/alzheimers-dataset-4-class-of-images">dataset</a>).
+The dataset used for this project is taken from Kaggle (<a href = "https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation">dataset</a>).
 
-The dataset consists of the following four classes of Alzheimer's MRI Images:
-
-* Mild Demented
-* Moderate Demented
-* Non Demented
-* Very Mild Demented
-
-The dataset is comprised of around 6400 brain MRI Images.
+The dataset consists of brain MR images together with manual FLAIR abnormality segmentation masks. The images were obtained from The Cancer Imaging Archive (TCIA).
+They scans correspond to 110 patients included in The Cancer Genome Atlas (TCGA) lower-grade glioma collection. The dataset is contains nearly 6400 brain MRI Images.
 
 ## Network Architecture
 
-The network architecture is illustrated below:
+* A series of convolutional layer – batch normalization layer - convolutional layer – batch normalization layer is considered as a conv_block. 
+* A conv_block with skip connections is called a res_conv_block.
+* A attention block is also used which basically takes 2 inputs: i) the gating signal which comes from a layer below the current layer in the decoder path and ii) the input from the skip connection path going from the encoder to the decoder(as in traditional U-Net framework). After a series of computation followed by concatenation of these inputs, the resultant output from an attention block is a set of pixel-level weights.
+* A series of res_conv_block are used; each followed by maxpooling layers in the encoder path.
+* The decoder path consists of a bunch of attention blocks, res_conv_blocks, upsampling and concatenation layers.
+* BinaryFocalLoss is used as the loss function and Adam is used as the optimizer.
 
-![](miscellaneous/network_architecture.jpg)
-
-A series of convolutional layer – convolutional layer – batch normalization layer – max pooling layer is considered as a convolutional block. 
-* Five such convolutional blocks are used and the number of filters of the Conv2D layers increases by the factor of 2 (ranging from 16 to 256) after each convolutional block.
-* A 3x3 kernel and relu activation function is used for all the convolutional layers.
-* Each maxpooling layer uses a pool size of 3x3 with a stride of 2.
-* A dropout layer with a dropout rate of 0.2 is used after each convolutional block.
-* The convolutional blocks are followed by a global average pooling layer and a couple of dense layers for classification.
 
 ## Tech Stack
 
 * Tensorflow
 * Keras
-* Flask
-* Docker
-* HTML & CSS
-
-## Demo on Heroku:
-Mobile and PC users can find a prototype of this project on: <a href = "https://alzheimers-aaryan-nakhat.herokuapp.com/" target="_blank">Heroku</a>
-
-(Note: the app takes time to load for the first time, so hang on!)
+* OpenCV
+* Pillow 
 
 
 ## Feedback
