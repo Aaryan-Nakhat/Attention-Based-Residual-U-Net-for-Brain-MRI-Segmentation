@@ -15,7 +15,7 @@ Using a standard U-Net architecture with skip connections embedded in residual b
 The dataset used for this project is taken from Kaggle (<a href = "https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation">dataset</a>).
 
 The dataset consists of brain MR images together with manual FLAIR abnormality segmentation masks. The images were obtained from The Cancer Imaging Archive (TCIA).
-They scans correspond to 110 patients included in The Cancer Genome Atlas (TCGA) lower-grade glioma collection. The dataset is contains nearly 6400 brain MRI Images.
+The scans correspond to 110 patients included in The Cancer Genome Atlas (TCGA) lower-grade glioma collection. The dataset is contains nearly 6400 brain MRI Images.
 
 ## Network Architecture
 
