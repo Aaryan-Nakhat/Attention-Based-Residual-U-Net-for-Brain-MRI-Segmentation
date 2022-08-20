@@ -7,7 +7,8 @@ Using a standard U-Net architecture with skip connections embedded in residual b
 
 ## Sample Prediction Results on Unseen Data
 
-![](miscellaneous/Sample Prediction on Unseen Data.png)
+![](miscellaneous/Sample_prediction_on_unseen_data.png)
+
 
 ## Dataset
 
