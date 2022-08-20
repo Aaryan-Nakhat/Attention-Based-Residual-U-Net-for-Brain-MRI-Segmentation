@@ -20,9 +20,9 @@ The scans correspond to 110 patients included in The Cancer Genome Atlas (TCGA) 
 ## Network Architecture
 
 * A series of convolutional layer – batch normalization layer - convolutional layer – batch normalization layer is considered as a conv_block. 
-* A conv_block with skip connections is called a res_conv_block.
-* A attention block is also used which basically takes 2 inputs: i) the gating signal which comes from a layer below the current layer in the decoder path and ii) the input from the skip connection path going from the encoder to the decoder(as in traditional U-Net framework). After a series of computation followed by concatenation of these inputs, the resultant output from an attention block is a set of pixel-level weights.
-* A series of res_conv_block are used; each followed by maxpooling layers in the encoder path.
+* A conv_block with skip connections called a res_conv_block is used. 
+* An attention block is also used which basically takes 2 inputs: i) the gating signal which comes from a layer below the current layer in the decoder path, and ii) the input from the skip connection path going from the encoder to the decoder(as in traditional U-Net framework). After a series of computation followed by concatenation of these inputs, the resultant output from an attention block is a set of pixel-wise weights.
+* A series of res_conv_block each followed by maxpooling layers is used in the encoder path.
 * The decoder path consists of a bunch of attention blocks, res_conv_blocks, upsampling and concatenation layers.
 * BinaryFocalLoss is used as the loss function and Adam is used as the optimizer.
 
@@ -33,6 +33,12 @@ The scans correspond to 110 patients included in The Cancer Genome Atlas (TCGA) 
 * Keras
 * OpenCV
 * Pillow 
+
+## Improvements
+
+* Due to lack of computational resources, SeperableConv2D layers are used instead of the classic Conv2D layers. So using the later will help improve the performance further.
+* Using a weighted sum of dice_loss and focal_loss tends to give far better results in biomedical segmentation tasks. Implementing the same should be beneficial.
+* Increasing the batch_size, playing around with model hyperparameters and using larger size MRI scans can also help improve the IOU scores.
 
 
 ## Feedback
